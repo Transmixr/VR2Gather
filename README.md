@@ -38,3 +38,4 @@ You will also find 2 Unity projects:
 - `VRTApp-Sample` imports the package normally, i.e. using the github URL. So after you have made changes using VRTApp-Develop and pushed those changes you can open VRTApp-Sample, update the package, re-install the samples, and check that your changes actually work and have been pushed.
 
 After making changes, and before pushing or testing with VRTApp-Sample you should _always_ change the package version number in `nl.cwi.dis.vr2gather/package.json`. Otherwise the Unity package manager will think that package has not changed and it will not re-import it.
+
