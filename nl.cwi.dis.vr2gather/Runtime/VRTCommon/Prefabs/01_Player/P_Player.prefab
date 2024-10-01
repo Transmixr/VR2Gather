@@ -1347,6 +1347,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ee302642fd02ab43846844518a16bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requestAudioBehindMs: 0
+  requestNonAudioBehindMs: 0
   _debugSynchronizer: 0
   debugJitterBuffer: 0
   currentLatency: 0
