@@ -523,6 +523,7 @@ MonoBehaviour:
   fadeOutText: 
   allowDirectInteractionInScene: 0
   sceneIsSingleUser: 1
+  NextSceneOnSessionEnd: VRTLoginManager
   m_directInteractionDisabled: 0
   selfPlayer: {fileID: 1151372263}
 --- !u!4 &772475570
@@ -920,10 +921,12 @@ MonoBehaviour:
     preparerQueueSizeOverride: 0
     encoderParallelism: 0
     decoderParallelism: 0
+    preparerQueueSize: 0
   Voice:
     audioFps: 50
     maxPlayoutLatency: 0.066
     maxPlayoutAhead: 0.066
+    preparerQueueSize: 0
     ignoreSynchronizer: 1
   Synchronizer:
     debugSynchronizer: 0
@@ -1530,6 +1533,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tool_ScenarioRegistry
+      objectReference: {fileID: 0}
+    - target: {fileID: 8141314486536374815, guid: cb215595e54b149439fda5e0b283e3bc,
+        type: 3}
+      propertyPath: scenarios.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8141314486536374815, guid: cb215595e54b149439fda5e0b283e3bc,
+        type: 3}
+      propertyPath: scenarios.Array.data[2].scenarioId
+      value: fd170a0c-b52d-4541-af3d-5c18317e8f07
+      objectReference: {fileID: 0}
+    - target: {fileID: 8141314486536374815, guid: cb215595e54b149439fda5e0b283e3bc,
+        type: 3}
+      propertyPath: scenarios.Array.data[2].scenarioName
+      value: FNVR2G
+      objectReference: {fileID: 0}
+    - target: {fileID: 8141314486536374815, guid: cb215595e54b149439fda5e0b283e3bc,
+        type: 3}
+      propertyPath: scenarios.Array.data[2].scenarioSceneName
+      value: FNVR2G
+      objectReference: {fileID: 0}
+    - target: {fileID: 8141314486536374815, guid: cb215595e54b149439fda5e0b283e3bc,
+        type: 3}
+      propertyPath: scenarios.Array.data[2].scenarioDescription
+      value: VR2Gather Fishnet Stuff
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
