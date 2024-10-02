@@ -7,6 +7,19 @@ using System;
 
 public class Fish2Gather : Transport
 {
+    #region Serialized Variables
+    [SerializeField]private string _serverAddress = string.Empty;
+    [SerializeField]private ushort _port = 7770;
+    [SerializeField]private ushort _maximumClients = 9001;
+    [SerializeField]private string _clientAddress = string.Empty;
+    #endregion
+
+    #region Private Variables
+    private int[] _mtus;
+    private bool shutdownCalled;
+    #endregion
+
+
     public override event Action<ClientConnectionStateArgs> OnClientConnectionState;
     public override event Action<ServerConnectionStateArgs> OnServerConnectionState;
     public override event Action<RemoteConnectionStateArgs> OnRemoteConnectionState;
