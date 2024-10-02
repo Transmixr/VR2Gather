@@ -1537,7 +1537,7 @@ PrefabInstance:
     - target: {fileID: 8141314486536374815, guid: cb215595e54b149439fda5e0b283e3bc,
         type: 3}
       propertyPath: scenarios.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8141314486536374815, guid: cb215595e54b149439fda5e0b283e3bc,
         type: 3}
@@ -1546,8 +1546,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8141314486536374815, guid: cb215595e54b149439fda5e0b283e3bc,
         type: 3}
+      propertyPath: scenarios.Array.data[3].scenarioId
+      value: 8ED09096-D08A-4396-BA15-E4D7E272341D
+      objectReference: {fileID: 0}
+    - target: {fileID: 8141314486536374815, guid: cb215595e54b149439fda5e0b283e3bc,
+        type: 3}
       propertyPath: scenarios.Array.data[2].scenarioName
       value: FNVR2G
+      objectReference: {fileID: 0}
+    - target: {fileID: 8141314486536374815, guid: cb215595e54b149439fda5e0b283e3bc,
+        type: 3}
+      propertyPath: scenarios.Array.data[3].scenarioName
+      value: JackVRTFishnet
       objectReference: {fileID: 0}
     - target: {fileID: 8141314486536374815, guid: cb215595e54b149439fda5e0b283e3bc,
         type: 3}
@@ -1556,8 +1566,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8141314486536374815, guid: cb215595e54b149439fda5e0b283e3bc,
         type: 3}
+      propertyPath: scenarios.Array.data[3].scenarioSceneName
+      value: JackVRTFishnet
+      objectReference: {fileID: 0}
+    - target: {fileID: 8141314486536374815, guid: cb215595e54b149439fda5e0b283e3bc,
+        type: 3}
       propertyPath: scenarios.Array.data[2].scenarioDescription
       value: VR2Gather Fishnet Stuff
+      objectReference: {fileID: 0}
+    - target: {fileID: 8141314486536374815, guid: cb215595e54b149439fda5e0b283e3bc,
+        type: 3}
+      propertyPath: scenarios.Array.data[3].scenarioDescription
+      value: Jack experimenting
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

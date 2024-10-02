@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/David Stuff/David Scenes/FNVR2G.unity
     guid: ea3d104e80cd3e14cb8f82cd15056e1b
+  - enabled: 1
+    path: Assets/Jack Stuff/Scenes/JackVRTFishnet.unity
+    guid: 248462aa0371b44d09181a21061e733b
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: b916857db71260845a232a451a163c3b,
       type: 2}
