@@ -31,9 +31,6 @@ public class VRTFishnetController : NetworkIdBehaviour
     {
         base.Awake();
         OrchestratorController.Instance.RegisterEventType(MessageTypeID.TID_FishnetStartupData, typeof(FishnetStartupData));
-        hostName = Dns.GetHostName();
-        // xxxjack should check that it's valid, and resolves.
-        // xxxjack otherwise we should use some other means.
         if (_networkManager == null) {
             _networkManager = FindObjectOfType<NetworkManager>();
         }
@@ -90,6 +87,17 @@ public class VRTFishnetController : NetworkIdBehaviour
 
     void StartFishnetServer() {
         if (_serverState != LocalConnectionState.Started) {
+            hostName = Dns.GetHostName();
+            IPAddress[] addresses = Dns.GetHostAddresses(hostName);
+            if (addresses.Length == 0) {
+                Debug.LogWarning($"{Name()}: No IP address for hostName {hostName}");
+            } else {
+                if (addresses.Length > 1) {
+                    Debug.LogWarning($"{Name()}: Multiple IP addresses ({addresses.Length}) for {hostName}, using first one");
+                }
+                hostName = addresses[0].ToString();
+                Debug.Log($"{Name()}: Using IP address {hostName}");
+            }
             Debug.Log($"{Name()}: Starting Fishnet server on VR2Gather master. host={hostName}");
             _networkManager.ServerManager.StartConnection();
         }

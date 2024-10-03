@@ -47,6 +47,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noAutoCreateNetworkId: 0
   NetworkId: 
+  hostName: 
+  _networkManager: {fileID: 0}
+  _clientState: 0
+  _serverState: 0
 --- !u!114 &7421648691646943784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,8 +65,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _refreshDefaultPrefabs: 0
   _runInBackground: 1
-  _dontDestroyOnLoad: 1
+  _dontDestroyOnLoad: 0
   _objectPool: {fileID: 0}
   _persistence: 0
-  _logging: {fileID: 0}
+  _logging: {fileID: 11400000, guid: 725701f5e78cf42299f2446b378657f7, type: 2}
   _spawnablePrefabs: {fileID: 11400000, guid: 8d6ec50f3d917b247a20e409d197cb42, type: 2}
