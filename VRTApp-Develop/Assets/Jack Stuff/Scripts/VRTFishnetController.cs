@@ -64,8 +64,12 @@ public class VRTFishnetController : NetworkIdBehaviour
     public virtual void OnDisable()
     {
         OrchestratorController.Instance.Unsubscribe<FishnetStartupData>(StartFishnetClient);
-        // xxxjack we need Fishnet teardown as well (on end-of-scene, or maybe end-of-application)
+        if (_clientState != LocalConnectionState.Stopped) {
+            Debug.Log($"{Name()}: Stopping client");
+            _networkManager.ClientManager.StopConnection();
+        }
         if (_serverState != LocalConnectionState.Stopped) {
+            Debug.Log($"{Name()}: Stopping server");
             _networkManager.ServerManager.StopConnection(true);
         }
     }
@@ -85,8 +89,8 @@ public class VRTFishnetController : NetworkIdBehaviour
     }
 
     void StartFishnetServer() {
-        Debug.Log($"{Name()}: Starting Fishnet server on VR2Gather master. host={hostName}");
         if (_serverState != LocalConnectionState.Started) {
+            Debug.Log($"{Name()}: Starting Fishnet server on VR2Gather master. host={hostName}");
             _networkManager.ServerManager.StartConnection();
         }
        
@@ -123,9 +127,5 @@ public class VRTFishnetController : NetworkIdBehaviour
         Debug.Log($"{Name()}: xxxjack ServerManager_OnServerConnectionState: state={obj.ConnectionState}");
         _serverState = obj.ConnectionState;
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
