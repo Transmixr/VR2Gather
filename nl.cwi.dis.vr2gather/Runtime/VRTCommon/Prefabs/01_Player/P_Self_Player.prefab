@@ -2699,6 +2699,11 @@ PrefabInstance:
       propertyPath: localPlayerOnlyObjects.Array.data[1]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8459278788493452881, guid: 21abad33e8196954b8f19e6b888a67a4,
+        type: 3}
+      propertyPath: <AssetPathHash>k__BackingField
+      value: 7288812320950169857
+      objectReference: {fileID: 0}
     - target: {fileID: 9024012130725533088, guid: 21abad33e8196954b8f19e6b888a67a4,
         type: 3}
       propertyPath: head.vrTarget
