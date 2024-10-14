@@ -27,6 +27,8 @@ public class VRTFishnetController : NetworkIdBehaviour
    
     [SerializeField]
     private LocalConnectionState _serverState = LocalConnectionState.Stopped;
+
+    [SerializeField] private float startUpTimeDelayInSeconds = 5.0f;
     protected override void Awake()
     {
         base.Awake();
@@ -75,14 +77,21 @@ public class VRTFishnetController : NetworkIdBehaviour
     void Start()
     {
         if (OrchestratorController.Instance.UserIsMaster) {
-            StartFishnetServer();
-            BroadcastFishnetServerAddress();
+            StartCoroutine("FishnetStartup");
         }
     }
 
     
     public string Name() {
         return "VRTFishnetController";
+    }
+
+    private IEnumerable FishnetStartup()
+    {
+        yield return new WaitForSecondsRealtime(startUpTimeDelayInSeconds);
+
+        StartFishnetServer();
+        BroadcastFishnetServerAddress();  
     }
 
     void StartFishnetServer() {

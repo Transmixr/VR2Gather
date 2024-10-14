@@ -184,6 +184,11 @@ PrefabInstance:
       propertyPath: NetworkId
       value: cb588fdf-2278-4eed-96eb-c87f17a9e701
       objectReference: {fileID: 0}
+    - target: {fileID: 2720325087722322520, guid: f39eb6158b5e82f449ae38845b9ae7cf,
+        type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 3887817406
+      objectReference: {fileID: 0}
     - target: {fileID: 2748806710792570276, guid: f39eb6158b5e82f449ae38845b9ae7cf,
         type: 3}
       propertyPath: playerController

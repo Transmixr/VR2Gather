@@ -2494,6 +2494,31 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 730496110871144713, guid: 21abad33e8196954b8f19e6b888a67a4,
+        type: 3}
+      propertyPath: <AssetPathHash>k__BackingField
+      value: 7288812320950169857
+      objectReference: {fileID: 0}
+    - target: {fileID: 730496110871144713, guid: 21abad33e8196954b8f19e6b888a67a4,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Rotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 730496110871144713, guid: 21abad33e8196954b8f19e6b888a67a4,
+        type: 3}
+      propertyPath: SerializedTransformProperties.LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 730496110871144713, guid: 21abad33e8196954b8f19e6b888a67a4,
+        type: 3}
+      propertyPath: SerializedTransformProperties.LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 730496110871144713, guid: 21abad33e8196954b8f19e6b888a67a4,
+        type: 3}
+      propertyPath: SerializedTransformProperties.LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 807501320281897656, guid: 21abad33e8196954b8f19e6b888a67a4,
         type: 3}
       propertyPath: SourceTop
@@ -2554,6 +2579,11 @@ PrefabInstance:
       propertyPath: rightHand.vrTarget
       value: 
       objectReference: {fileID: 6895736282343858898}
+    - target: {fileID: 2363962344518372128, guid: 21abad33e8196954b8f19e6b888a67a4,
+        type: 3}
+      propertyPath: <AssetPathHash>k__BackingField
+      value: 7288812320950169857
+      objectReference: {fileID: 0}
     - target: {fileID: 2593157252197247934, guid: 21abad33e8196954b8f19e6b888a67a4,
         type: 3}
       propertyPath: head.vrTarget
@@ -2729,6 +2759,8 @@ PrefabInstance:
     - {fileID: -1358535412789719997, guid: 21abad33e8196954b8f19e6b888a67a4, type: 3}
     - {fileID: 8216302940161519962, guid: 21abad33e8196954b8f19e6b888a67a4, type: 3}
     - {fileID: 3811856458579877849, guid: 21abad33e8196954b8f19e6b888a67a4, type: 3}
+    - {fileID: -6365661994293701652, guid: 21abad33e8196954b8f19e6b888a67a4, type: 3}
+    - {fileID: 730496110871144713, guid: 21abad33e8196954b8f19e6b888a67a4, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5704200592656136347, guid: 21abad33e8196954b8f19e6b888a67a4, type: 3}
     m_AddedGameObjects:
