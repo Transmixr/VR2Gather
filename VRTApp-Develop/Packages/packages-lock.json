@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.heathen.steamworksfoundation": {
-      "version": "https://github.com/heathen-engineering/Toolkit-for-Steamworks-Foundation.git?path=Unity/com.heathen.steamworksfoundation",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "ed182e7482fd8b424dda4354de573afe9d7dc596"
-    },
     "com.heathen.systemcore": {
       "version": "https://github.com/heathen-engineering/SystemCore.git?path=/com.heathen.systemcore",
       "depth": 0,
@@ -24,13 +17,6 @@
         "com.unity.nuget.newtonsoft-json": "3.0.2"
       },
       "hash": "b43e1fa081328eea08f8a7c05c54eba14c97ae22"
-    },
-    "com.rlabrecque.steamworks.net": {
-      "version": "https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "a2fc889ab2672981ec3e6225d551d86ce6923121"
     },
     "com.unity.ai.navigation": {
       "version": "1.1.5",
