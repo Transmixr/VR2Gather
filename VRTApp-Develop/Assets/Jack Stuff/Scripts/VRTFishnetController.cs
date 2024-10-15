@@ -54,6 +54,7 @@ public class VRTFishnetController : NetworkIdBehaviour
         _networkManager.ClientManager.OnClientConnectionState -= ClientManager_OnClientConnectionState;
         base.OnDestroy();
     }
+
     public virtual void OnEnable()
     {
         OrchestratorController.Instance.Subscribe<FishnetStartupData>(StartFishnetClient);
@@ -76,7 +77,11 @@ public class VRTFishnetController : NetworkIdBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log($"{Name()}: Starting VRTFishnetController");
+
         if (OrchestratorController.Instance.UserIsMaster) {
+            Debug.Log($"{Name()}: Firing Startup Coroutine");
+
             StartCoroutine("FishnetStartup");
         }
     }
@@ -86,8 +91,9 @@ public class VRTFishnetController : NetworkIdBehaviour
         return "VRTFishnetController";
     }
 
-    private IEnumerable FishnetStartup()
+    private IEnumerator FishnetStartup()
     {
+        Debug.Log($"{Name()}: Coroutine started, T-minus 5 seconds");
         yield return new WaitForSecondsRealtime(startUpTimeDelayInSeconds);
 
         StartFishnetServer();
