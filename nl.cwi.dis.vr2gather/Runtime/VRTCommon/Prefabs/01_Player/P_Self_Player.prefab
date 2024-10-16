@@ -2489,6 +2489,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 53128122182254982, guid: 21abad33e8196954b8f19e6b888a67a4,
+        type: 3}
+      propertyPath: <AssetPathHash>k__BackingField
+      value: 7288812320950169857
+      objectReference: {fileID: 0}
     - target: {fileID: 426937040433907628, guid: 21abad33e8196954b8f19e6b888a67a4,
         type: 3}
       propertyPath: m_IsActive
