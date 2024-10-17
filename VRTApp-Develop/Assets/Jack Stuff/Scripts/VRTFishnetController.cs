@@ -97,6 +97,9 @@ public class VRTFishnetController : NetworkIdBehaviour
         yield return new WaitForSecondsRealtime(startUpTimeDelayInSeconds);
 
         StartFishnetServer();
+
+        yield return new WaitForSecondsRealtime(2.0f);
+
         BroadcastFishnetServerAddress();  
     }
 
