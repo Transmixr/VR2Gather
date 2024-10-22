@@ -58,7 +58,7 @@ namespace FishNet.Managing.Server
         public Dictionary<int, NetworkConnection> Clients = new();
         /// <summary>
         /// Clients dictionary as a list, containing only values.
-        /// </summary>        
+        /// </summary>  
         private List<NetworkConnection> _clientsList = new();
         /// <summary>
         /// NetworkManager for server.

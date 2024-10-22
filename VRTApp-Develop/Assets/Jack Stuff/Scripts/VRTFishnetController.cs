@@ -123,7 +123,7 @@ public class VRTFishnetController : NetworkIdBehaviour
     }
 
     void BroadcastFishnetServerAddress() {
-        // xxxjack This will only be run on the master. Use a VR2Gather Orchestrator message to have all session participants call RecieveServerData.
+        // xxxjack This will only be run on the master. Use a VR2Gather Orchestrator message to have all session participants call StartFishnetClient.
         // xxxjack maybe we ourselves (the master) have to call it also, need to check.
         FishnetStartupData serverData = new() {
             serverHost=hostName,

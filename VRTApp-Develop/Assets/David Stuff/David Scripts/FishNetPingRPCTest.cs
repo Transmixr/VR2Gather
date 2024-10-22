@@ -34,15 +34,17 @@ public class FishNetPingRPCTest : NetworkBehaviour
     }
 
 
-    [ObserversRpc]
+    [ServerRpc(RunLocally = true)]
     public void RPCPlaySound()
     {
+        Debug.Log($"{Name()}: Button clicked on Fish Net Object");
+
+        m_AudioSource.Play();
+
         /*Sometimes Fishnet needs RPC events to be checked if the caller is the server so I had this here initially accoriding to normal setup but moved the Play() method out during testing*/
         if (IsServerInitialized)
         {
-            Debug.Log($"{Name()}: Button clicked on Fish Net Object");
-
-            m_AudioSource.Play();
+            
         }
     }
 }
