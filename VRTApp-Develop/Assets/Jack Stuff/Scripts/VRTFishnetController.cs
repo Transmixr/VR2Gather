@@ -107,15 +107,19 @@ public class VRTFishnetController : NetworkIdBehaviour
         if (_serverState != LocalConnectionState.Started) {
             hostName = Dns.GetHostName();
             IPAddress[] addresses = Dns.GetHostAddresses(hostName);
-            if (addresses.Length == 0) {
-                Debug.LogWarning($"{Name()}: No IP address for hostName {hostName}");
-            } else {
-                if (addresses.Length > 1) {
-                    Debug.LogWarning($"{Name()}: Multiple IP addresses ({addresses.Length}) for {hostName}, using first one");
-                }
-                hostName = addresses[0].ToString();
-                Debug.Log($"{Name()}: Using IP address {hostName}");
-            }
+            //
+            //TODO: Search for an IPv4 adress instead of an IPv6
+            //
+            //if (addresses.Length == 0) {
+            //    Debug.LogWarning($"{Name()}: No IP address for hostName {hostName}");
+            //} else {
+            //    if (addresses.Length > 1) {
+            //        Debug.LogWarning($"{Name()}: Multiple IP addresses ({addresses.Length}) for {hostName}, using first one");
+            //    }
+            //    hostName = addresses[0].ToString();
+            //    Debug.Log($"{Name()}: Using IP address {hostName}");
+            //}
+            hostName = "192.168.219.229";
             Debug.Log($"{Name()}: Starting Fishnet server on VR2Gather master. host={hostName}");
             _networkManager.ServerManager.StartConnection();
         }
@@ -150,7 +154,14 @@ public class VRTFishnetController : NetworkIdBehaviour
 
     private void ServerManager_OnServerConnectionState(ServerConnectionStateArgs obj)
     {
-        Debug.Log($"{Name()}: xxxjack ServerManager_OnServerConnectionState: state={obj.ConnectionState}");
+        if(obj.ConnectionState == LocalConnectionState.Stopped)
+        {
+            Debug.LogError($"{Name()}: xxxjack ServerManager_OnServerConnectionState: state={obj.ConnectionState}");
+        }else
+        {
+            Debug.Log($"{Name()}: xxxjack ServerManager_OnServerConnectionState: state={obj.ConnectionState}");
+        }
+        
         _serverState = obj.ConnectionState;
     }
     
