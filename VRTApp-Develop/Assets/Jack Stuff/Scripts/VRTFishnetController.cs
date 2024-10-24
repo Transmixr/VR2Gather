@@ -8,6 +8,7 @@ using VRT.Pilots.Common;
 using System;
 using JetBrains.Annotations;
 using System.Net;
+using UnityEditor.VersionControl;
 
 public class VRTFishnetController : NetworkIdBehaviour
 {
@@ -15,6 +16,13 @@ public class VRTFishnetController : NetworkIdBehaviour
     {
         public string serverHost;
         public ushort serverPort;
+    };
+
+    public class FishnetMessage : BaseMessage
+    {
+        public bool toServer;
+        public byte channelId;
+        public byte[] fishnetPayload;
     };
 
     [SerializeField]
@@ -29,10 +37,16 @@ public class VRTFishnetController : NetworkIdBehaviour
     private LocalConnectionState _serverState = LocalConnectionState.Stopped;
 
     [SerializeField] private float startUpTimeDelayInSeconds = 3.0f;
+
+    Queue<FishnetMessage> incomingMessages = new();
+
+    public bool debug;
+
     protected override void Awake()
     {
         base.Awake();
         OrchestratorController.Instance.RegisterEventType(MessageTypeID.TID_FishnetStartupData, typeof(FishnetStartupData));
+        OrchestratorController.Instance.RegisterEventType(MessageTypeID.TID_FishnetMessage, typeof(FishnetMessage));
         if (_networkManager == null) {
             _networkManager = FindObjectOfType<NetworkManager>();
         }
@@ -45,7 +59,7 @@ public class VRTFishnetController : NetworkIdBehaviour
     
     }
 
-    void OnDestroy()
+    new void OnDestroy()
     {
         if (_networkManager == null)
             return;
@@ -58,6 +72,7 @@ public class VRTFishnetController : NetworkIdBehaviour
     public virtual void OnEnable()
     {
         OrchestratorController.Instance.Subscribe<FishnetStartupData>(StartFishnetClient);
+        OrchestratorController.Instance.Subscribe<FishnetMessage>(FishnetMessageReceived);
     }
 
 
@@ -65,11 +80,11 @@ public class VRTFishnetController : NetworkIdBehaviour
     {
         OrchestratorController.Instance.Unsubscribe<FishnetStartupData>(StartFishnetClient);
         if (_clientState != LocalConnectionState.Stopped) {
-            Debug.Log($"{Name()}: Stopping client");
+            if (debug) Debug.Log($"{Name()}: Stopping client");
             _networkManager.ClientManager.StopConnection();
         }
         if (_serverState != LocalConnectionState.Stopped) {
-            Debug.Log($"{Name()}: Stopping server");
+            if (debug) Debug.Log($"{Name()}: Stopping server");
             _networkManager.ServerManager.StopConnection(true);
         }
     }
@@ -77,10 +92,10 @@ public class VRTFishnetController : NetworkIdBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log($"{Name()}: Starting VRTFishnetController");
+        if (debug) Debug.Log($"{Name()}: Starting VRTFishnetController");
 
         if (OrchestratorController.Instance.UserIsMaster) {
-            Debug.Log($"{Name()}: Firing Startup Coroutine");
+            if (debug) Debug.Log($"{Name()}: Firing Startup Coroutine");
 
             StartCoroutine("FishnetStartup");
         }
@@ -93,7 +108,7 @@ public class VRTFishnetController : NetworkIdBehaviour
 
     private IEnumerator FishnetStartup()
     {
-        Debug.Log($"{Name()}: Coroutine started, T-minus 5 seconds");
+        if (debug) Debug.Log($"{Name()}: Coroutine started, T-minus 5 seconds");
         yield return new WaitForSecondsRealtime(startUpTimeDelayInSeconds);
 
         StartFishnetServer();
@@ -120,7 +135,7 @@ public class VRTFishnetController : NetworkIdBehaviour
             //    Debug.Log($"{Name()}: Using IP address {hostName}");
             //}
             hostName = "192.168.219.229";
-            Debug.Log($"{Name()}: Starting Fishnet server on VR2Gather master. host={hostName}");
+            if (debug) Debug.Log($"{Name()}: Starting Fishnet server on VR2Gather master. host={hostName}");
             _networkManager.ServerManager.StartConnection();
         }
        
@@ -139,7 +154,7 @@ public class VRTFishnetController : NetworkIdBehaviour
 
     void StartFishnetClient(FishnetStartupData server) {
         // xxxjack this is going to need at least one argument (the address of the Fishnet server)
-        Debug.Log($"{Name()}: Starting Fishnet client, host={server.serverHost}, port={server.serverPort}");
+        if (debug) Debug.Log($"{Name()}: Starting Fishnet client, host={server.serverHost}, port={server.serverPort}");
         if (_clientState == LocalConnectionState.Stopped) {
             _networkManager.ClientManager.StartConnection(server.serverHost, server.serverPort);
         }
@@ -147,7 +162,7 @@ public class VRTFishnetController : NetworkIdBehaviour
     }
     private void ClientManager_OnClientConnectionState(ClientConnectionStateArgs obj)
     {
-        Debug.Log($"{Name()}: xxxjack ClientManager_OnClientConnectionState: state={obj.ConnectionState}");
+        if (debug) Debug.Log($"{Name()}: xxxjack ClientManager_OnClientConnectionState: state={obj.ConnectionState}");
         _clientState = obj.ConnectionState;
     }
 
@@ -156,13 +171,53 @@ public class VRTFishnetController : NetworkIdBehaviour
     {
         if(obj.ConnectionState == LocalConnectionState.Stopped)
         {
-            Debug.LogError($"{Name()}: xxxjack ServerManager_OnServerConnectionState: state={obj.ConnectionState}");
-        }else
+            Debug.LogError($"{Name()}: ServerManager_OnServerConnectionState: state={obj.ConnectionState}");
+        }
+        else
         {
-            Debug.Log($"{Name()}: xxxjack ServerManager_OnServerConnectionState: state={obj.ConnectionState}");
+            if (debug) Debug.Log($"{Name()}: ServerManager_OnServerConnectionState: state={obj.ConnectionState}");
         }
         
         _serverState = obj.ConnectionState;
     }
     
+    void FishnetMessageReceived(FishnetMessage message) 
+    {
+        // xxxjack add to queue
+        if (debug) Debug.Log($"{Name()}: FishnetMessageReceived({message.channelId}, {message.fishnetPayload.Length} bytes)");
+        incomingMessages.Enqueue(message);
+    }
+
+    public void SendToServer(byte channelId, ArraySegment<byte> segment)
+    {
+        FishnetMessage message = new() {
+            toServer = true,
+            channelId = channelId,
+            fishnetPayload = segment.ToArray()
+        };
+        if (debug) Debug.Log($"{Name()}: SendToServer({channelId}, {message.fishnetPayload.Length} bytes)");
+        OrchestratorController.Instance.SendTypeEventToMaster<FishnetMessage>(message);
+    }
+       
+    public void SendToClient(byte channelId, ArraySegment<byte> segment, int connectionId)
+    {
+        FishnetMessage message = new() {
+            toServer = false,
+            channelId = channelId,
+            fishnetPayload = segment.ToArray()
+        };
+        if (debug) Debug.Log($"{Name()}: SendToClient({channelId}, {message.fishnetPayload.Length} bytes, {connectionId})");
+        string userId = "blabla"; // xxxjack need to map connectionId to userId
+        OrchestratorController.Instance.SendTypeEventToUser<FishnetMessage>(userId, message);
+    }
+
+    public bool IterateIncoming(VRTFishnetTransport transport) {
+        // xxxjack process all messages in the queue
+        FishnetMessage message;
+        while (incomingMessages.TryDequeue(out message)) {
+            if (debug) Debug.Log($"{Name()}: IterateIncoming: forward message to {transport.Name()}");
+            transport.HandleDataReceivedViaOrchestrator(message.toServer, message.channelId, message.fishnetPayload);     
+        }
+        return true;
+    }
 }

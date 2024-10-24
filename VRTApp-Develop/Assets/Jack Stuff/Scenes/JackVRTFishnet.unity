@@ -2401,12 +2401,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1392301327}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &340137372 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6426731968589791837, guid: 021b36b7b922e44a99602c3deee0c41f,
-    type: 3}
-  m_PrefabInstance: {fileID: 2660173669045245640}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &384510919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4897,14 +4891,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2995892183094870237, guid: 021b36b7b922e44a99602c3deee0c41f,
         type: 3}
-      propertyPath: NetworkId
-      value: 4f8b7511-1706-4025-9931-706750c114b6
+      propertyPath: debug
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2995892183094870237, guid: 021b36b7b922e44a99602c3deee0c41f,
         type: 3}
-      propertyPath: _networkManager
-      value: 
-      objectReference: {fileID: 2660173669045245641}
+      propertyPath: NetworkId
+      value: 8e9b3798-91a5-4b9d-a281-dff5920a549f
+      objectReference: {fileID: 0}
     - target: {fileID: 4399038397685816634, guid: 021b36b7b922e44a99602c3deee0c41f,
         type: 3}
       propertyPath: NetworkId
@@ -4920,6 +4914,11 @@ PrefabInstance:
       propertyPath: NetworkId
       value: 2d78e81c-40ae-4a4c-a326-b9fe638ddca8
       objectReference: {fileID: 0}
+    - target: {fileID: 5790482131092191643, guid: 021b36b7b922e44a99602c3deee0c41f,
+        type: 3}
+      propertyPath: debug
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6871294701813058597, guid: 021b36b7b922e44a99602c3deee0c41f,
         type: 3}
       propertyPath: NetworkId
@@ -4928,44 +4927,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6426731968589791837, guid: 021b36b7b922e44a99602c3deee0c41f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2660173669045245643}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 021b36b7b922e44a99602c3deee0c41f, type: 3}
---- !u!114 &2660173669045245641 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 492691050896073504, guid: 021b36b7b922e44a99602c3deee0c41f,
-    type: 3}
-  m_PrefabInstance: {fileID: 2660173669045245640}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 340137372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2c95dfde7d73b54dbbdc23155d35d36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2660173669045245643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 340137372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f48f002b825cbd45a19bd96d90f9edb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dontRoute: 1
-  _unreliableMtu: 1023
-  _ipv4BindAddress: 
-  _enableIpv6: 0
-  _ipv6BindAddress: 
-  _port: 7770
-  _maximumClients: 4095
-  _clientAddress: 192.168.219.229
 --- !u!1001 &8100788905384649267
 PrefabInstance:
   m_ObjectHideFlags: 0

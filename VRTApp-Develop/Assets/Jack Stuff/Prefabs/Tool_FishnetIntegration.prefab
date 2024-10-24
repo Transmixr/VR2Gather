@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7398764049365097985}
   - component: {fileID: 5312859830984782293}
   - component: {fileID: 7421648691646943784}
+  - component: {fileID: 3491258514033625235}
   m_Layer: 0
   m_Name: Tool_FishnetIntegration
   m_TagString: Untagged
@@ -48,9 +49,10 @@ MonoBehaviour:
   noAutoCreateNetworkId: 0
   NetworkId: 
   hostName: 
-  _networkManager: {fileID: 0}
+  _networkManager: {fileID: 7421648691646943784}
   _clientState: 0
   _serverState: 0
+  startUpTimeDelayInSeconds: 3
 --- !u!114 &7421648691646943784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,3 +72,16 @@ MonoBehaviour:
   _persistence: 0
   _logging: {fileID: 11400000, guid: 725701f5e78cf42299f2446b378657f7, type: 2}
   _spawnablePrefabs: {fileID: 11400000, guid: 8d6ec50f3d917b247a20e409d197cb42, type: 2}
+--- !u!114 &3491258514033625235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4114261888073102165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ac590b9db084b51b7c1c0aa20b727f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 5312859830984782293}
