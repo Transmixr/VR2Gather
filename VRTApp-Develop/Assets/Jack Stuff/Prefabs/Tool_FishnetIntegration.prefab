@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5312859830984782293}
   - component: {fileID: 7421648691646943784}
   - component: {fileID: 3491258514033625235}
+  - component: {fileID: 7657195310289029334}
+  - component: {fileID: 5694109165132035599}
   m_Layer: 0
   m_Name: Tool_FishnetIntegration
   m_TagString: Untagged
@@ -48,11 +50,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noAutoCreateNetworkId: 0
   NetworkId: 
-  hostName: 
   _networkManager: {fileID: 7421648691646943784}
   _clientState: 0
   _serverState: 0
   startUpTimeDelayInSeconds: 3
+  debug: 0
+  didForwardConnectionRequests: 0
 --- !u!114 &7421648691646943784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,3 +88,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 5312859830984782293}
+  debug: 0
+--- !u!114 &7657195310289029334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4114261888073102165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68828c85278210948b9d50a8db3aab74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _authenticator: {fileID: 0}
+  _remoteClientTimeout: 0
+  _remoteClientTimeoutDuration: 60
+  _allowPredictedSpawning: 0
+  _reservedObjectIds: 15
+  _syncTypeRate: 0.1
+  SpawnPacking:
+    Position: 0
+    Rotation: 2
+    Scale: 2
+  _changeFrameRate: 0
+  _frameRate: 500
+  _shareIds: 1
+  _startOnHeadless: 0
+--- !u!114 &5694109165132035599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4114261888073102165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aca43cf6f20e77c4f8fcc078fd85081f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _remoteServerTimeout: 0
+  _remoteServerTimeoutDuration: 60
+  _changeFrameRate: 0
+  _frameRate: 500
