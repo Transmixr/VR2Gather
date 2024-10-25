@@ -35,7 +35,7 @@ using System;
         public override string GetConnectionAddress(int connectionId)
         {
             if (debug) Debug.Log($"{Name()}: GetConnectionAddress({connectionId})");
-            return "xxxjack-connectionAddress";
+            return controller.GetConnectionAddress(connectionId);
         }
         /// <summary>
         /// Called when a connection state changes for the local client.
@@ -91,7 +91,7 @@ using System;
         /// <param name="connectionStateArgs"></param>
         public override void HandleRemoteConnectionState(RemoteConnectionStateArgs connectionStateArgs)
         {
-            if (debug) Debug.Log($"{Name()}: HandleRemoteConnectionState()");
+            if (debug) Debug.Log($"{Name()}: HandleRemoteConnectionState({connectionStateArgs.ConnectionId})");
             OnRemoteConnectionState?.Invoke(connectionStateArgs);
         }
        
@@ -374,6 +374,10 @@ using System;
                 HandleClientReceivedDataArgs(args);
             }
         }
+
+        public void HandleConnectedViaOrchestrator(int connectionId) {
+            HandleRemoteConnectionState(new RemoteConnectionStateArgs(RemoteConnectionState.Started, connectionId, base.Index));       
+        }
 #if UNITY_EDITOR
         private void OnValidate()
         {
@@ -381,5 +385,8 @@ using System;
             
         }
 #endif
+        void xxx() {
+        
+        }
    
 }

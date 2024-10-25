@@ -9,6 +9,7 @@ using System;
 using JetBrains.Annotations;
 using System.Net;
 using UnityEditor.VersionControl;
+using VRT.Orchestrator.Elements;
 
 public class VRTFishnetController : NetworkIdBehaviour
 {
@@ -20,6 +21,7 @@ public class VRTFishnetController : NetworkIdBehaviour
     public class FishnetMessage : BaseMessage
     {
         public bool toServer;
+        public int connectionId;
         public byte channelId;
         public byte[] fishnetPayload;
     };
@@ -38,6 +40,7 @@ public class VRTFishnetController : NetworkIdBehaviour
 
     public bool debug;
 
+    public bool didForwardConnectionRequests = false;
     protected override void Awake()
     {
         base.Awake();
@@ -161,34 +164,47 @@ public class VRTFishnetController : NetworkIdBehaviour
     void FishnetMessageReceived(FishnetMessage message) 
     {
         // xxxjack add to queue
-        if (debug) Debug.Log($"{Name()}: FishnetMessageReceived({message.channelId}, {message.fishnetPayload.Length} bytes)");
+        if (debug) Debug.Log($"{Name()}: FishnetMessageReceived({message.connectionId}, {message.channelId}, {message.fishnetPayload.Length} bytes)");
         incomingMessages.Enqueue(message);
     }
 
     public void SendToServer(byte channelId, ArraySegment<byte> segment)
     {
+        string userId = OrchestratorController.Instance.SelfUser.userId;
+        int connectionId = OrchestratorController.Instance.CurrentSession.GetUserIndex(userId);
         FishnetMessage message = new() {
             toServer = true,
+            connectionId = connectionId,
             channelId = channelId,
             fishnetPayload = segment.ToArray()
         };
-        if (debug) Debug.Log($"{Name()}: SendToServer({channelId}, {message.fishnetPayload.Length} bytes)");
+        if (debug) Debug.Log($"{Name()}: SendToServer({connectionId}, {channelId}, {message.fishnetPayload.Length} bytes)");
         OrchestratorController.Instance.SendTypeEventToMaster<FishnetMessage>(message);
     }
        
     public void SendToClient(byte channelId, ArraySegment<byte> segment, int connectionId)
     {
+        User user = OrchestratorController.Instance.CurrentSession.GetUserByIndex(connectionId);
+        string userId = user.userId;
         FishnetMessage message = new() {
             toServer = false,
+            connectionId = connectionId,
             channelId = channelId,
             fishnetPayload = segment.ToArray()
         };
-        if (debug) Debug.Log($"{Name()}: SendToClient({channelId}, {message.fishnetPayload.Length} bytes, {connectionId})");
-        string userId = "blabla"; // xxxjack need to map connectionId to userId
+        if (debug) Debug.Log($"{Name()}: SendToClient({channelId}, {message.fishnetPayload.Length} bytes, {connectionId}) -> {userId}");
         OrchestratorController.Instance.SendTypeEventToUser<FishnetMessage>(userId, message);
     }
 
     public bool IterateIncoming(VRTFishnetTransport transport) {
+        // process all connection requests, if not done yet.
+        if (!didForwardConnectionRequests) {
+            if (debug) Debug.Log($"{Name()}: IterateIncoming: forward new connections to {transport.Name()}");
+            for (int connectionId = 0; connectionId < OrchestratorController.Instance.CurrentSession.GetUserCount(); connectionId++) {
+                transport.HandleConnectedViaOrchestrator(connectionId);
+            }
+            didForwardConnectionRequests = true;
+        }
         // xxxjack process all messages in the queue
         FishnetMessage message;
         while (incomingMessages.TryDequeue(out message)) {
@@ -196,5 +212,10 @@ public class VRTFishnetController : NetworkIdBehaviour
             transport.HandleDataReceivedViaOrchestrator(message.toServer, message.channelId, message.fishnetPayload);     
         }
         return true;
+    }
+
+    public string GetConnectionAddress(int connectionId) {
+        User user = OrchestratorController.Instance.CurrentSession.GetUserByIndex(connectionId);
+        return user.userId;
     }
 }
