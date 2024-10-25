@@ -218,10 +218,14 @@ using System;
             if (debug) Debug.Log($"{Name()}: StartConnection({server})");
             if (server) {
                 _serverConnectionState = LocalConnectionState.Started;
+                ServerConnectionStateArgs args = new(_serverConnectionState, base.Index);
+                HandleServerConnectionState(args);
             }
             else
             {
                 _clientConnectionState = LocalConnectionState.Started;
+                ClientConnectionStateArgs args = new(_clientConnectionState, base.Index);
+                HandleClientConnectionState(args);
             }
             return true;
         }
