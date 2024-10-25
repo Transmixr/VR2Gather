@@ -14,8 +14,7 @@ public class VRTFishnetController : NetworkIdBehaviour
 {
     public class FishnetStartupData : BaseMessage
     {
-        public string serverHost;
-        public ushort serverPort;
+        public byte dummy;
     };
 
     public class FishnetMessage : BaseMessage
@@ -24,9 +23,6 @@ public class VRTFishnetController : NetworkIdBehaviour
         public byte channelId;
         public byte[] fishnetPayload;
     };
-
-    [SerializeField]
-    private string hostName;
 
     [SerializeField]
     private NetworkManager _networkManager;
@@ -108,34 +104,19 @@ public class VRTFishnetController : NetworkIdBehaviour
 
     private IEnumerator FishnetStartup()
     {
-        if (debug) Debug.Log($"{Name()}: Coroutine started, T-minus 5 seconds");
         yield return new WaitForSecondsRealtime(startUpTimeDelayInSeconds);
-
+        
         StartFishnetServer();
 
         yield return new WaitForSecondsRealtime(2.0f);
-
+        
         BroadcastFishnetServerAddress();  
     }
 
     void StartFishnetServer() {
         if (_serverState != LocalConnectionState.Started) {
-            hostName = Dns.GetHostName();
-            IPAddress[] addresses = Dns.GetHostAddresses(hostName);
-            //
-            //TODO: Search for an IPv4 adress instead of an IPv6
-            //
-            //if (addresses.Length == 0) {
-            //    Debug.LogWarning($"{Name()}: No IP address for hostName {hostName}");
-            //} else {
-            //    if (addresses.Length > 1) {
-            //        Debug.LogWarning($"{Name()}: Multiple IP addresses ({addresses.Length}) for {hostName}, using first one");
-            //    }
-            //    hostName = addresses[0].ToString();
-            //    Debug.Log($"{Name()}: Using IP address {hostName}");
-            //}
-            hostName = "192.168.219.229";
-            if (debug) Debug.Log($"{Name()}: Starting Fishnet server on VR2Gather master. host={hostName}");
+            
+            if (debug) Debug.Log($"{Name()}: Starting Fishnet server on VR2Gather master.");
             _networkManager.ServerManager.StartConnection();
         }
        
@@ -144,21 +125,17 @@ public class VRTFishnetController : NetworkIdBehaviour
     void BroadcastFishnetServerAddress() {
         // xxxjack This will only be run on the master. Use a VR2Gather Orchestrator message to have all session participants call StartFishnetClient.
         // xxxjack maybe we ourselves (the master) have to call it also, need to check.
-        FishnetStartupData serverData = new() {
-            serverHost=hostName,
-            serverPort=7770
-        };
+        FishnetStartupData serverData = new();
         OrchestratorController.Instance.SendTypeEventToAll(serverData);
         StartFishnetClient(serverData);
     }
 
     void StartFishnetClient(FishnetStartupData server) {
         // xxxjack this is going to need at least one argument (the address of the Fishnet server)
-        if (debug) Debug.Log($"{Name()}: Starting Fishnet client, host={server.serverHost}, port={server.serverPort}");
+        if (debug) Debug.Log($"{Name()}: Starting Fishnet client");
         if (_clientState == LocalConnectionState.Stopped) {
-            _networkManager.ClientManager.StartConnection(server.serverHost, server.serverPort);
+            _networkManager.ClientManager.StartConnection();
         }
-        // xxxjack this should create the connection to the server.
     }
     private void ClientManager_OnClientConnectionState(ClientConnectionStateArgs obj)
     {
