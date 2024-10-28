@@ -184,8 +184,8 @@ public class VRTFishnetController : NetworkIdBehaviour
         if (debug) Debug.Log($"{Name()}: SendToServer({connectionId}, {channelId}, {message.fishnetPayload.Length} bytes)");
         // The orchestrator receiver code filters out messages coming from self.
         // So we short-circuit that here.
-        if (userId == OrchestratorController.Instance.SelfUser.userId) {
-            if (debug) Debug.Log($"{Name()}: SendToServer: Short-circuit message to self.");
+        if (OrchestratorController.Instance.UserIsMaster) {
+            if (debug) Debug.Log($"{Name()}: SendToServer: Short-circuit message to self, we are master.");
             FishnetMessageReceived(message);
         }
         else
@@ -221,7 +221,9 @@ public class VRTFishnetController : NetworkIdBehaviour
         // process all connection requests, if not done yet.
         if (!didForwardConnectionRequests && transport.VRTIsConnected(true)) {
             if (debug) Debug.Log($"{Name()}: IterateIncoming: forward new connections to {transport.Name()}");
-            for (int connectionId = 0; connectionId < OrchestratorController.Instance.CurrentSession.GetUserCount(); connectionId++) {
+            // Note that we skip connectionId==0, because that is us (the VRT session master), and we have
+            // already connected earlier.
+            for (int connectionId = 1; connectionId < OrchestratorController.Instance.CurrentSession.GetUserCount(); connectionId++) {
                 transport.VRTHandleConnectedViaOrchestrator(connectionId);
             }
             didForwardConnectionRequests = true;
