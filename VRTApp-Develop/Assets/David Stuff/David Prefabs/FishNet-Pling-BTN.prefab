@@ -357,7 +357,7 @@ MonoBehaviour:
   <NestedRootNetworkBehaviours>k__BackingField: []
   SerializedTransformProperties:
     Position: {x: -1.145, y: 1.1420001, z: 2.033}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isSpawnable: 1
@@ -513,7 +513,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8307059418282709093}
         m_TargetAssemblyTypeName: FishNetPingRPCTest, Assembly-CSharp
-        m_MethodName: RPCPlaySound
+        m_MethodName: LocalEventFire
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
