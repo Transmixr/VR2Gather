@@ -168,8 +168,15 @@ public class VRTFishnetController : NetworkIdBehaviour
     
     void FishnetMessageReceived(FishnetMessage message) 
     {
-        // xxxjack add to queue
-        if (debug) Debug.Log($"{Name()}: FishnetMessageReceived({message.connectionId}, {message.channelId}, {message.fishnetPayload.Length} bytes)");
+        string senderId = message.SenderId;
+        string connectionOwnerId = OrchestratorController.Instance.CurrentSession.GetUserByIndex(message.connectionId).userId;
+        if (senderId != connectionOwnerId) {
+            Debug.LogWarning($"{Name()}: FishnetMessageReceived: connectionId {message.connectionId} is owned by {connectionOwnerId} but got message from {senderId}");
+        }
+        if (senderId != connectionOwnerId ) {
+
+        }
+        if (debug) Debug.Log($"{Name()}: FishnetMessageReceived(connectionId={message.connectionId}, toServer={message.toServer}, {message.channelId}, {message.fishnetPayload.Length} bytes)");
         incomingMessages.Enqueue(message);
     }
 
@@ -183,11 +190,12 @@ public class VRTFishnetController : NetworkIdBehaviour
             channelId = channelId,
             fishnetPayload = segment.ToArray()
         };
-        if (debug) Debug.Log($"{Name()}: SendToServer({connectionId}, {channelId}, {message.fishnetPayload.Length} bytes)");
+        if (debug) Debug.Log($"{Name()}: SendToServer(connectionId={connectionId}, channelId={channelId}, {message.fishnetPayload.Length} bytes)");
         // The orchestrator receiver code filters out messages coming from self.
         // So we short-circuit that here.
         if (OrchestratorController.Instance.UserIsMaster) {
             if (debug) Debug.Log($"{Name()}: SendToServer: Short-circuit message to self, we are master.");
+            message.SenderId = userId;
             FishnetMessageReceived(message);
         }
         else
@@ -206,11 +214,12 @@ public class VRTFishnetController : NetworkIdBehaviour
             channelId = channelId,
             fishnetPayload = segment.ToArray()
         };
-        if (debug) Debug.Log($"{Name()}: SendToClient({channelId}, {message.fishnetPayload.Length} bytes, {connectionId}) -> {userId}");
+        if (debug) Debug.Log($"{Name()}: SendToClient(channelId={channelId}, {message.fishnetPayload.Length} bytes, connectionId={connectionId}) -> {userId}");
         // The orchestrator receiver code filters out messages coming from self.
         // So we short-circuit that here.
         if (userId == OrchestratorController.Instance.SelfUser.userId) {
             if (debug) Debug.Log($"{Name()}: SendToClient: Short-circuit message to self.");
+            message.SenderId = userId;
             FishnetMessageReceived(message);
         }
         else
