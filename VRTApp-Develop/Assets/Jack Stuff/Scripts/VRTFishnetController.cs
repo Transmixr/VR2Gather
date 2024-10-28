@@ -136,13 +136,16 @@ public class VRTFishnetController : NetworkIdBehaviour
     void StartFishnetClient(FishnetStartupData server) {
         // xxxjack this is going to need at least one argument (the address of the Fishnet server)
         if (debug) Debug.Log($"{Name()}: Starting Fishnet client");
+        if (_clientState != LocalConnectionState.Stopped) {
+            Debug.LogWarning($"{Name()}: StartFishnetClient called, but clientState=={_clientState}");
+        }
         if (_clientState == LocalConnectionState.Stopped) {
             _networkManager.ClientManager.StartConnection();
         }
     }
     private void ClientManager_OnClientConnectionState(ClientConnectionStateArgs obj)
     {
-        if (debug) Debug.Log($"{Name()}: xxxjack ClientManager_OnClientConnectionState: state={obj.ConnectionState}");
+        if (debug) Debug.Log($"{Name()}: ClientManager_OnClientConnectionState: state={obj.ConnectionState}");
         _clientState = obj.ConnectionState;
     }
 
@@ -179,7 +182,16 @@ public class VRTFishnetController : NetworkIdBehaviour
             fishnetPayload = segment.ToArray()
         };
         if (debug) Debug.Log($"{Name()}: SendToServer({connectionId}, {channelId}, {message.fishnetPayload.Length} bytes)");
-        OrchestratorController.Instance.SendTypeEventToMaster<FishnetMessage>(message);
+        // The orchestrator receiver code filters out messages coming from self.
+        // So we short-circuit that here.
+        if (userId == OrchestratorController.Instance.SelfUser.userId) {
+            if (debug) Debug.Log($"{Name()}: SendToServer: Short-circuit message to self.");
+            FishnetMessageReceived(message);
+        }
+        else
+        {
+            OrchestratorController.Instance.SendTypeEventToMaster<FishnetMessage>(message);
+        }        
     }
        
     public void SendToClient(byte channelId, ArraySegment<byte> segment, int connectionId)
