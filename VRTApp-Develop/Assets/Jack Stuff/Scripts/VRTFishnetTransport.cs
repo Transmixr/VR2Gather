@@ -11,8 +11,8 @@ using System;
     {
         const int _mtu = 1000;
 
-        LocalConnectionState _clientConnectionState = LocalConnectionState.Stopped;
-        LocalConnectionState _serverConnectionState = LocalConnectionState.Stopped;
+        public LocalConnectionState _clientConnectionState = LocalConnectionState.Stopped;
+        public LocalConnectionState _serverConnectionState = LocalConnectionState.Stopped;
 
         public VRTFishnetController controller = null;
         
