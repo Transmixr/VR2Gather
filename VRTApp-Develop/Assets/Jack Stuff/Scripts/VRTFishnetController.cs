@@ -193,7 +193,16 @@ public class VRTFishnetController : NetworkIdBehaviour
             fishnetPayload = segment.ToArray()
         };
         if (debug) Debug.Log($"{Name()}: SendToClient({channelId}, {message.fishnetPayload.Length} bytes, {connectionId}) -> {userId}");
-        OrchestratorController.Instance.SendTypeEventToUser<FishnetMessage>(userId, message);
+        // The orchestrator receiver code filters out messages coming from self.
+        // So we short-circuit that here.
+        if (userId == OrchestratorController.Instance.SelfUser.userId) {
+            if (debug) Debug.Log($"{Name()}: SendToClient: Short-circuit message to self.");
+            FishnetMessageReceived(message);
+        }
+        else
+        {
+            OrchestratorController.Instance.SendTypeEventToUser<FishnetMessage>(userId, message);
+        }
     }
 
     public bool IterateIncoming(VRTFishnetTransport transport) {
