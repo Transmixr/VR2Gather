@@ -34,7 +34,7 @@ public class FishNetPingRPCTest : NetworkBehaviour
     }
 
 
-    [ServerRpc(RunLocally = true)]
+    [ServerRpc(RequireOwnership = false)]
     public void RPCPlaySound()
     {
         Debug.Log($"{Name()}: Button clicked on Fish Net Object");
