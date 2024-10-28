@@ -360,9 +360,12 @@ using System;
             if (debug) Debug.Log($"{Name()}: GetMTU()");
             return _mtu;
         }
-        public void HandleDataReceivedViaOrchestrator(bool toServer, byte channelId, byte[] payload) {
+        public void VRTHandleDataReceivedViaOrchestrator(bool toServer, byte channelId, byte[] payload) {
             if (debug) Debug.Log($"{Name()}: HandleDataReceivedViaOrchestrator()");
             if(toServer) {
+                if (_serverConnectionState != LocalConnectionState.Started) {
+                    Debug.LogWarning($"{Name()}: VRTHandleDataReceivedViaOrchestrator: incoming message for server, but it is not started");
+                }
                 ServerReceivedDataArgs args = new() {
                     Channel=(Channel)channelId,
                     Data=payload
@@ -371,6 +374,9 @@ using System;
             }
             else
             {
+                if (_clientConnectionState != LocalConnectionState.Started) {
+                    Debug.LogWarning($"{Name()}: VRTHandleDataReceivedViaOrchestrator: incoming message for client, but it is not started");
+                }
                 ClientReceivedDataArgs args = new() {
                     Channel=(Channel)channelId,
                     Data=payload
@@ -379,8 +385,22 @@ using System;
             }
         }
 
-        public void HandleConnectedViaOrchestrator(int connectionId) {
+        public void VRTHandleConnectedViaOrchestrator(int connectionId) {
+            if (_serverConnectionState != LocalConnectionState.Started) {
+                Debug.LogWarning($"{Name()}: VRTHandleConnectedViaOrchestrator: incoming connection for server, but it is not started");
+            }
             HandleRemoteConnectionState(new RemoteConnectionStateArgs(RemoteConnectionState.Started, connectionId, base.Index));       
+        }
+
+        public bool VRTIsConnected(bool server) {
+            if (server) 
+            {
+                return _serverConnectionState == LocalConnectionState.Started;
+            }
+            else
+            {
+                return _clientConnectionState == LocalConnectionState.Started;
+            }
         }
 #if UNITY_EDITOR
         private void OnValidate()

@@ -198,10 +198,10 @@ public class VRTFishnetController : NetworkIdBehaviour
 
     public bool IterateIncoming(VRTFishnetTransport transport) {
         // process all connection requests, if not done yet.
-        if (!didForwardConnectionRequests) {
+        if (!didForwardConnectionRequests && transport.VRTIsConnected(true)) {
             if (debug) Debug.Log($"{Name()}: IterateIncoming: forward new connections to {transport.Name()}");
             for (int connectionId = 0; connectionId < OrchestratorController.Instance.CurrentSession.GetUserCount(); connectionId++) {
-                transport.HandleConnectedViaOrchestrator(connectionId);
+                transport.VRTHandleConnectedViaOrchestrator(connectionId);
             }
             didForwardConnectionRequests = true;
         }
@@ -209,7 +209,7 @@ public class VRTFishnetController : NetworkIdBehaviour
         FishnetMessage message;
         while (incomingMessages.TryDequeue(out message)) {
             if (debug) Debug.Log($"{Name()}: IterateIncoming: forward message to {transport.Name()}");
-            transport.HandleDataReceivedViaOrchestrator(message.toServer, message.channelId, message.fishnetPayload);     
+            transport.VRTHandleDataReceivedViaOrchestrator(message.toServer, message.channelId, message.fishnetPayload);     
         }
         return true;
     }
