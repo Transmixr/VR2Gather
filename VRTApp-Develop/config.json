@@ -1,5 +1,4 @@
 {
-	"orchestratorURL" : "http://flauwte.huiskamer.private:8090/",
     "targetFrameRate": -1,
     "ntpSyncThreshold": 0.100,
     "statsInterval": 10.0,
