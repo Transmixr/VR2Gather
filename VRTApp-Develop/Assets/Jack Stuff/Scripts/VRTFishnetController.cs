@@ -130,7 +130,9 @@ public class VRTFishnetController : NetworkIdBehaviour
         // xxxjack maybe we ourselves (the master) have to call it also, need to check.
         FishnetStartupData serverData = new();
         OrchestratorController.Instance.SendTypeEventToAll(serverData);
-        StartFishnetClient(serverData);
+        // We don't start the fishnet client yet, we do that later, after we have told
+        // the fishnet server about this connection.
+        // StartFishnetClient(serverData);
     }
 
     void StartFishnetClient(FishnetStartupData server) {
@@ -221,18 +223,23 @@ public class VRTFishnetController : NetworkIdBehaviour
         // process all connection requests, if not done yet.
         if (!didForwardConnectionRequests && transport.VRTIsConnected(true)) {
             if (debug) Debug.Log($"{Name()}: IterateIncoming: forward new connections to {transport.Name()}");
-            // Note that we skip connectionId==0, because that is us (the VRT session master), and we have
-            // already connected earlier.
-            for (int connectionId = 1; connectionId < OrchestratorController.Instance.CurrentSession.GetUserCount(); connectionId++) {
+            
+            for (int connectionId = 0; connectionId < OrchestratorController.Instance.CurrentSession.GetUserCount(); connectionId++) {
                 transport.VRTHandleConnectedViaOrchestrator(connectionId);
             }
+            
+            // For the instance hosting the server (the VRT session master) we also need to start the
+            // fishnet client
+            FishnetStartupData serverData = new();
+            StartFishnetClient(serverData);
+
             didForwardConnectionRequests = true;
         }
         // xxxjack process all messages in the queue
         FishnetMessage message;
         while (incomingMessages.TryDequeue(out message)) {
             if (debug) Debug.Log($"{Name()}: IterateIncoming: forward message to {transport.Name()}");
-            transport.VRTHandleDataReceivedViaOrchestrator(message.toServer, message.channelId, message.fishnetPayload);     
+            transport.VRTHandleDataReceivedViaOrchestrator(message.toServer, message.connectionId, message.channelId, message.fishnetPayload);     
         }
         return true;
     }

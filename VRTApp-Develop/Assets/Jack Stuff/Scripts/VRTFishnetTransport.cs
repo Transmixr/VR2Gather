@@ -360,7 +360,7 @@ using System;
             if (debug) Debug.Log($"{Name()}: GetMTU()");
             return _mtu;
         }
-        public void VRTHandleDataReceivedViaOrchestrator(bool toServer, byte channelId, byte[] payload) {
+        public void VRTHandleDataReceivedViaOrchestrator(bool toServer, int connectionId, byte channelId, byte[] payload) {
             if (debug) Debug.Log($"{Name()}: HandleDataReceivedViaOrchestrator()");
             if(toServer) {
                 if (_serverConnectionState != LocalConnectionState.Started) {
@@ -368,7 +368,10 @@ using System;
                 }
                 ServerReceivedDataArgs args = new() {
                     Channel=(Channel)channelId,
-                    Data=payload
+                    Data=payload,
+                    ConnectionId=connectionId,
+                    TransportIndex=base.Index
+
                 };
                 HandleServerReceivedDataArgs(args);
             }
@@ -379,7 +382,8 @@ using System;
                 }
                 ClientReceivedDataArgs args = new() {
                     Channel=(Channel)channelId,
-                    Data=payload
+                    Data=payload,
+                    TransportIndex=base.Index
                 };
                 HandleClientReceivedDataArgs(args);
             }
