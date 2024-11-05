@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using VRT.Orchestrator.Wrapping;
-using FishNet.Object;
+using VRT.Fishnet;
 #if VRT_WITH_STATS
 using Statistics = Cwipc.Statistics;
 #endif
 
-namespace VRT.Fishnet
+namespace VRT.Pilots.Common
 {
 
 
@@ -26,14 +26,12 @@ namespace VRT.Fishnet
 		public UnityEvent OnTrigger;
 
 
-		public void Awake() {
-			if (Events != null) {
+		protected override void Awake() {
+			base.Awake();
+			if (Events.Count != 0) {
 				Debug.LogError($"{Name()}: Events is initialized. Don't do this, use the OnTrigger field, or better: port your code to use VRTFishnetTrigger.");
 			}
-			Events = new()
-            {
-                OnTrigger
-            };
+			Events.Add(OnTrigger);
 		}
 
 		/// <summary>

@@ -11,6 +11,8 @@ namespace VRT.Fishnet {
 
         [Tooltip("Introspection: enable for debug output")]
         [SerializeField] private bool debug = false;
+        [Tooltip("Introspection: name of this instance in log messages")]
+        [SerializeField] private string nameInLog;
         static int instanceCounter = 0;
         int instanceNumber = instanceCounter++;
 
@@ -19,17 +21,18 @@ namespace VRT.Fishnet {
             return $"{GetType().Name}#{instanceNumber}";
         }
 
-        void Awake() {
+        protected virtual void Awake() {
             if (debug) Debug.Log($"{Name()}: Awake");
+            nameInLog = Name();
         }
-        void Start() {
+        protected virtual void Start() {
             if (debug) Debug.Log($"{Name()}: Start");
         }
-        void OnEnable() {
+        protected virtual void OnEnable() {
             if (debug) Debug.Log($"{Name()}: OnEnable");
         }
 
-        void OnDisable() {
+        protected virtual void OnDisable() {
             if (debug) Debug.Log($"{Name()}: OnDisable");
         }
 

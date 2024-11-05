@@ -7,6 +7,8 @@ using UnityEngine;
 using System;
 
 namespace VRT.Fishnet {
+    using Transport = FishNet.Transporting.Transport;
+
     public class VRTFishnetTransport : Transport
     {
         const int _mtu = 1000;

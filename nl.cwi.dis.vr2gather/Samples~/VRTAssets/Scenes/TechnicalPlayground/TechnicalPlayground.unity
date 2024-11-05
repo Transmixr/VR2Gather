@@ -208,6 +208,11 @@ PrefabInstance:
       propertyPath: NetworkId
       value: 81e5f35a-3d0c-4b65-aaf0-93bd6adc8eed
       objectReference: {fileID: 0}
+    - target: {fileID: 8205449645504951540, guid: 9f62a695f65bf47318a10ec13b184c67,
+        type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 4292386677
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2571,6 +2576,11 @@ PrefabInstance:
       propertyPath: NetworkId
       value: 9c64e919-eeab-46db-bf3c-16e2ecb0c84d
       objectReference: {fileID: 0}
+    - target: {fileID: 4537492197268601623, guid: a8d4000ad542e450cbf3d78c891144eb,
+        type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 3944259577
+      objectReference: {fileID: 0}
     - target: {fileID: 5470088799591805525, guid: a8d4000ad542e450cbf3d78c891144eb,
         type: 3}
       propertyPath: NetworkId
@@ -2585,6 +2595,11 @@ PrefabInstance:
         type: 3}
       propertyPath: noAutoCreateNetworkId
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6901361745736806911, guid: a8d4000ad542e450cbf3d78c891144eb,
+        type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 2069708663
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2735,6 +2750,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5575280403819452633, guid: df7e71082a6fe476b877542a2ac16e26,
+        type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 2069487477
       objectReference: {fileID: 0}
     - target: {fileID: 6516761691932996572, guid: df7e71082a6fe476b877542a2ac16e26,
         type: 3}
@@ -3020,6 +3040,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5575280403819452633, guid: df7e71082a6fe476b877542a2ac16e26,
+        type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 3753515515
       objectReference: {fileID: 0}
     - target: {fileID: 6516761691932996572, guid: df7e71082a6fe476b877542a2ac16e26,
         type: 3}
@@ -3543,6 +3568,11 @@ PrefabInstance:
       propertyPath: NetworkId
       value: ba1b6782-830f-4565-83c0-376a702405fb
       objectReference: {fileID: 0}
+    - target: {fileID: 5363120330153083430, guid: 792ef7e010d4c46408d2d132dce912fc,
+        type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 2140675953
+      objectReference: {fileID: 0}
     - target: {fileID: 6623331342603783085, guid: 792ef7e010d4c46408d2d132dce912fc,
         type: 3}
       propertyPath: NetworkId
@@ -3783,6 +3813,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1074953122}
     m_Modifications:
+    - target: {fileID: -1300543859447981177, guid: c4eeccd38a01b004b867bd8cb03fe0d2,
+        type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 3407535985
+      objectReference: {fileID: 0}
     - target: {fileID: 2494339738444114026, guid: c4eeccd38a01b004b867bd8cb03fe0d2,
         type: 3}
       propertyPath: NetworkId
@@ -3852,6 +3887,11 @@ PrefabInstance:
         type: 3}
       propertyPath: NetworkId
       value: ead3047a-9ba0-4934-b289-cea976efbbe0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725858755341915258, guid: c4eeccd38a01b004b867bd8cb03fe0d2,
+        type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 3480787953
       objectReference: {fileID: 0}
     - target: {fileID: 6167229887549875700, guid: c4eeccd38a01b004b867bd8cb03fe0d2,
         type: 3}
@@ -4800,6 +4840,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tool_scenesetup
       objectReference: {fileID: 0}
+    - target: {fileID: 2141823549386833170, guid: 9908dcf284aef0e4a8ba245dc5f0f080,
+        type: 3}
+      propertyPath: debug
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4264426995196595072, guid: 9908dcf284aef0e4a8ba245dc5f0f080,
         type: 3}
       propertyPath: NetworkId
@@ -4819,6 +4864,11 @@ PrefabInstance:
         type: 3}
       propertyPath: NetworkId
       value: 030d604e-156e-460d-8e2d-6e9a6a2a41a2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237612167393363028, guid: 9908dcf284aef0e4a8ba245dc5f0f080,
+        type: 3}
+      propertyPath: debug
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7237612167393363028, guid: 9908dcf284aef0e4a8ba245dc5f0f080,
         type: 3}
@@ -5036,10 +5086,20 @@ PrefabInstance:
       propertyPath: NetworkId
       value: ce907d1d-4c46-40dd-9dca-d19edc66ac62
       objectReference: {fileID: 0}
+    - target: {fileID: 7366039629766712943, guid: 7f5e1b7b6639c4870ac5384c0de66e19,
+        type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 4219025763
+      objectReference: {fileID: 0}
     - target: {fileID: 8220838698186333637, guid: 7f5e1b7b6639c4870ac5384c0de66e19,
         type: 3}
       propertyPath: NetworkId
       value: 5e6b889d-2e2f-4cfb-aa40-15561c7949f1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8628337517996709860, guid: 7f5e1b7b6639c4870ac5384c0de66e19,
+        type: 3}
+      propertyPath: debug
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8628337517996709860, guid: 7f5e1b7b6639c4870ac5384c0de66e19,
         type: 3}
@@ -5139,6 +5199,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5451495089681098625, guid: 877bbed7179594fe9864a6a10d898f8a,
+        type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 3948763623
       objectReference: {fileID: 0}
     - target: {fileID: 6494459644874141194, guid: 877bbed7179594fe9864a6a10d898f8a,
         type: 3}

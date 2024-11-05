@@ -655,7 +655,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  debug: 0
+  debug: 1
+  nameInLog: 
 --- !u!1 &7514110103374679647
 GameObject:
   m_ObjectHideFlags: 0

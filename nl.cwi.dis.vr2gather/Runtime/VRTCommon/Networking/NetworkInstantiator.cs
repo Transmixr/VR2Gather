@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using VRT.Orchestrator.Wrapping;
+using VRT.Fishnet;
 #if VRT_WITH_STATS
 using Statistics = Cwipc.Statistics;
 #endif
 
-namespace VRT.Fishnet
+namespace VRT.Pilots.Common
 {
 	/// <summary>
 	/// Component that instantiates prefabs across all instances of the player in the experience.
