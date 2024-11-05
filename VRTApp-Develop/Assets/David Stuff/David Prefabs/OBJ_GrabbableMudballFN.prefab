@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 2125739197500702234}
   - component: {fileID: 2125739197500702213}
   - component: {fileID: 2125739197500702212}
-  - component: {fileID: 2125739197500702215}
-  - component: {fileID: 2125739197500702214}
   - component: {fileID: 8142376249219549371}
   - component: {fileID: 7429739370325250771}
   m_Layer: 29
@@ -140,7 +138,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2125739197500702215}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: VRT.Pilots.Common.Grabbable, Pilots
         m_MethodName: OnGrab
         m_Mode: 1
@@ -155,7 +153,7 @@ MonoBehaviour:
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2125739197500702215}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: VRT.Pilots.Common.Grabbable, Pilots
         m_MethodName: OnRelease
         m_Mode: 1
@@ -265,38 +263,6 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
---- !u!114 &2125739197500702215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2125739197500702208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb42fafcd0a49eb4382d952c1caa3bac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  noAutoCreateNetworkId: 0
-  NetworkId: 
-  Rigidbody: {fileID: 2125739197500702234}
-  UpdateFrequency: 10
-  isGrabbed: 0
-  debug: 0
---- !u!114 &2125739197500702214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2125739197500702208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d01f80fadf83064b9769a7dac7f596f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grabbableRef: {fileID: 0}
-  transformRef: {fileID: 0}
 --- !u!114 &8142376249219549371
 MonoBehaviour:
   m_ObjectHideFlags: 0
