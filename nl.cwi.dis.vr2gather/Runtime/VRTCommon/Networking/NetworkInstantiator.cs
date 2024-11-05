@@ -5,19 +5,15 @@ using VRT.Orchestrator.Wrapping;
 using Statistics = Cwipc.Statistics;
 #endif
 
-namespace VRT.Pilots.Common
+namespace VRT.Fishnet
 {
 	/// <summary>
 	/// Component that instantiates prefabs across all instances of the player in the experience.
     /// OnTrigger callback is invoked after the prefab has been instantiated.
 	/// </summary>
-	public class NetworkInstantiator : NetworkTriggerBase
+	public class NetworkInstantiator : VRTFishnetTrigger
 	{
-		public class NetworkInstantiatorData : BaseMessage
-		{
-			public string NetworkBehaviourId;
-			public string InstantiatedObjectId;
-		}
+
 
 		//public bool MasterOnlyInstantiator = false;
 
@@ -27,30 +23,20 @@ namespace VRT.Pilots.Common
 		public Transform location;
 
 	
-		protected override void Awake()
+		public void Awake()
 		{
-			base.Awake();
-			OrchestratorController.Instance.RegisterEventType(MessageTypeID.TID_NetworkInstantiatorData, typeof(NetworkInstantiatorData));
 			if (location == null) location = transform;
 
 		}
-		public void OnEnable()
-		{
-			OrchestratorController.Instance.Subscribe<NetworkInstantiatorData>(OnNetworkTrigger);
-		}
-
-
-		public void OnDisable()
-		{
-			OrchestratorController.Instance.Unsubscribe<NetworkInstantiatorData>(OnNetworkTrigger);
-		}
+		
 
 		/// <summary>
 		/// Call this method locally when the user interaction has happened. It will transmit the event to
 		/// other participants, and all participants (including the local one) will call the OnTrigger callback.
 		/// </summary>
-		public override void Trigger()
+		public void Trigger()
 		{
+#if xxxjack
 			var instantiatorRequest = new NetworkInstantiatorData()
 			{
 				NetworkBehaviourId = NetworkId,
@@ -73,8 +59,12 @@ namespace VRT.Pilots.Common
 #if VRT_WITH_STATS
             Statistics.Output("NetworkInstantiator", $"name={name}, local=1, master=1, instantiatorId={NetworkId}, newId={newId}");
 #endif
+#else
+		Debug.LogWarning($"{Name()}: Trigger not implemented yet");
+#endif
 		}
 
+#if xxxjack
 		void OnNetworkTrigger(NetworkInstantiatorData data)
 		{
 			if (!NeedsAction(data.NetworkBehaviourId)) return;
@@ -114,7 +104,7 @@ namespace VRT.Pilots.Common
 			Statistics.Output("NetworkInstantiator", $"name={name}, sessionId={OrchestratorController.Instance.CurrentSession.sessionId}");
 #endif
 		}
-
+#endif
 		/// <summary>
 		/// Create a local copy of the new object and return it. May be overridden by subclasses,
 		/// for example to initialize the new object correctly.
@@ -128,6 +118,7 @@ namespace VRT.Pilots.Common
 			return Instantiate(templateObject, location.transform.position, location.transform.rotation);
         }
 
+#if xxxjack
 		/// <summary>
 		/// Instantiate the object and assign its network IDs.
 		/// </summary>
@@ -156,5 +147,6 @@ namespace VRT.Pilots.Common
 			}
 			return newNetworkId;
 		}
+#endif
 	}
 }
