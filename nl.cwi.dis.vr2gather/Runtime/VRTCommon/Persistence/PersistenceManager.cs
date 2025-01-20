@@ -34,6 +34,7 @@ namespace VRT.Pilots.Common
         protected override void Awake()
         {
             base.Awake();
+            DontDestroyOnLoad(this.transform.gameObject);
             OrchestratorController.Instance.RegisterEventType(MessageTypeID.TID_PersistenceManagerData, typeof(PersistenceManagerData));
         }
 
